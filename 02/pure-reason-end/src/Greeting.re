@@ -1,0 +1,1 @@
+let greeting = name => {j|hello $name|j};

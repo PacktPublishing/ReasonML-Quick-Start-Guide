@@ -3,7 +3,7 @@
   comma. If this screws with your editor highlighting, please tell us by filing
   an issue! */
 {
-  "name": "reasonml-quick-start-guide",
+  "name": "reasonreact-start",
   "reason": {
     "react-jsx": 2
   },
@@ -13,14 +13,12 @@
   },
   "package-specs": [
     {
-      "module": "es6"
+      "module": "commonjs",
+      "in-source": true
     }
   ],
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": ["reason-react"],
-  "refmt": 3,
-  "warnings": {
-    "error": "+5+8"
-  }
+  "refmt": 3
 }
