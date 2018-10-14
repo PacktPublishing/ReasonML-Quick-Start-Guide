@@ -2,7 +2,7 @@
 
 ReactDOMRe.renderToElementWithId(
   <Router.WithRouter>
-    ...((~currentRoute) => <App currentRoute />)
+    ...{(~currentRoute) => <App currentRoute />}
   </Router.WithRouter>,
   "root",
 );

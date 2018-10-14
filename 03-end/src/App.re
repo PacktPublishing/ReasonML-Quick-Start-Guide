@@ -94,46 +94,46 @@ let make = (~currentRoute: Router.route, _children) => {
     },
   render: self =>
     <div
-      className=("App" ++ (self.state.isOpen ? " overlay" : ""))
-      onClick=(
+      className={"App" ++ (self.state.isOpen ? " overlay" : "")}
+      onClick={
         _event =>
           if (self.state.isOpen) {
             self.send(ToggleMenu(false));
           }
-      )
-      onTouchStart=(
+      }
+      onTouchStart={
         event =>
           self.send(
             TouchStart(
               ReactEvent.Touch.changedTouches(event)##item(0)##clientX,
             ),
           )
-      )
-      onTouchMove=(
+      }
+      onTouchMove={
         event =>
           self.send(
             TouchMove(
               ReactEvent.Touch.changedTouches(event)##item(0)##clientX,
             ),
           )
-      )
-      onTouchEnd=(_event => self.send(TouchEnd))>
+      }
+      onTouchEnd={_event => self.send(TouchEnd)}>
       <header>
         <a
-          onClick=(
+          onClick={
             event => {
               ReactEvent.Mouse.stopPropagation(event);
               self.send(ToggleMenu(true));
             }
-          )>
-          <img src=(require("../../../src/img/icon/hamburger.svg")) />
+          }>
+          <img src={require("../../../src/img/icon/hamburger.svg")} />
         </a>
-        <h1> (ReasonReact.string(currentRoute.title)) </h1>
+        <h1> {ReasonReact.string(currentRoute.title)} </h1>
       </header>
       <nav
-        className=(self.state.isOpen ? "active" : "")
-        onClick=(event => ReactEvent.Mouse.stopPropagation(event))
-        style=(
+        className={self.state.isOpen ? "active" : ""}
+        onClick={event => ReactEvent.Mouse.stopPropagation(event)}
+        style={
           switch (self.state.touches) {
           | {first: Some((x, _)), last: Some((x', _))} =>
             ReactDOMRe.Style.make(
@@ -146,8 +146,8 @@ let make = (~currentRoute: Router.route, _children) => {
             )
           | _ => ReactDOMRe.Style.make()
           }
-        )
-        ref=(
+        }
+        ref={
           self.handle((ref, self) =>
             self.state.width :=
               (
@@ -157,40 +157,40 @@ let make = (~currentRoute: Router.route, _children) => {
                 }
               )
           )
-        )>
+        }>
         <header>
-          <a onClick=(_event => self.send(ToggleMenu(false)))>
-            <img src=(require("../../../src/img/icon/arrow.svg")) />
-            (ReasonReact.string(currentRoute.title))
+          <a onClick={_event => self.send(ToggleMenu(false))}>
+            <img src={require("../../../src/img/icon/arrow.svg")} />
+            {ReasonReact.string(currentRoute.title)}
           </a>
         </header>
-        <label> (ReasonReact.string("home")) </label>
+        <label> {ReasonReact.string("home")} </label>
         <ul>
           <li>
             <Router.NavLink href="/">
-              (ReasonReact.string("Home"))
+              {ReasonReact.string("Home")}
             </Router.NavLink>
           </li>
         </ul>
-        <label> (ReasonReact.string("pages")) </label>
+        <label> {ReasonReact.string("pages")} </label>
         <ul>
           <li>
             <Router.NavLink href="/page1">
-              (ReasonReact.string("Page1"))
+              {ReasonReact.string("Page1")}
             </Router.NavLink>
           </li>
           <li>
             <Router.NavLink href="/page2">
-              (ReasonReact.string("Page2"))
+              {ReasonReact.string("Page2")}
             </Router.NavLink>
           </li>
           <li>
             <Router.NavLink href="/page3">
-              (ReasonReact.string("Page3"))
+              {ReasonReact.string("Page3")}
             </Router.NavLink>
           </li>
         </ul>
       </nav>
-      <main> currentRoute.component </main>
+      <main> {currentRoute.component} </main>
     </div>,
 };

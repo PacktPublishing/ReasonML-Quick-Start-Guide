@@ -57,12 +57,12 @@ module Link = {
       <a
         href
         className
-        onClick=(
+        onClick={
           self.handle((event, _self) => {
             ReactEvent.Mouse.preventDefault(event);
             ReasonReact.Router.push(href);
           })
-        )>
+        }>
         ...children
       </a>,
   };
@@ -74,13 +74,13 @@ module NavLink = {
     ...component,
     render: _self =>
       <WithRouter>
-        ...(
+        ...{
              (~currentRoute) =>
                <Link
-                 href className=(currentRoute.href == href ? "active" : "")>
+                 href className={currentRoute.href == href ? "active" : ""}>
                  ...children
                </Link>
-           )
+           }
       </WithRouter>,
   };
 };
