@@ -61,17 +61,11 @@ let make = (~currentRoute: Router.route, _children) => {
         ReasonReact.NoUpdate;
       }
     | TouchEnd =>
-      if (!Belt.Option.isNone(state.touches.last)) {
+      if (state.isOpen) {
         let (x, t) =
-          switch (state.touches.first) {
-          | None => (0.0, 0.0)
-          | Some(p) => p
-          };
+          Belt.Option.getWithDefault(state.touches.first, (0.0, 0.0));
         let (x', t') =
-          switch (state.touches.last) {
-          | None => (0.0, 0.0)
-          | Some(p) => p
-          };
+          Belt.Option.getWithDefault(state.touches.last, (0.0, 0.0));
         let velocity = (x' -. x) /. (t' -. t);
         let state = {
           ...state,
