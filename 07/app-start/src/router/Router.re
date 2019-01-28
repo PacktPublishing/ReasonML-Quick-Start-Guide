@@ -6,19 +6,38 @@ type route = {
 
 let routes = [
   {href: "/", title: "Home", component: <Home />},
-  {href: "/page1", title: "Page1", component: <Page1 />},
+  {href: "/customers", title: "Customer List", component: <CustomerList />},
+  {
+    href: "/customers/create",
+    title: "Create Customer",
+    component: <Customer />,
+  },
+  {href: "/customers/:id", title: "Update Customer", component: <Customer />},
   {href: "/page2", title: "Page2", component: <Page2 />},
   {href: "/page3", title: "Page3", component: <Page3 />},
 ];
 
-let hrefToPath = href =>
-  Js.String.replaceByRe([%bs.re "/(^\\/)|(\\/$)/"], "", href)
-  |> Js.String.split("/")
-  |> Belt.List.fromArray;
+let hrefToPath = href => href |> Js.String.split("/") |> Belt.List.fromArray;
+
+let pathToHref = path =>
+  Belt.List.reduce(path, "", (acc, p) => acc ++ "/" ++ p);
 
 let urlToRoute = (url: ReasonReact.Router.url) =>
   switch (
-    Belt.List.getBy(routes, route => url.path == hrefToPath(route.href))
+    Belt.List.getBy(
+      routes,
+      route => {
+        let regex =
+          Js.String.replaceByRe([%bs.re "/[:*]\w+/g"], "[^\/]+", route.href)
+          ++ "$";
+        switch (
+          Js.String.match(Js.Re.fromString(regex), pathToHref(url.path))
+        ) {
+        | None => false
+        | Some(_match) => true
+        };
+      },
+    )
   ) {
   | None => Belt.List.headExn(routes)
   | Some(route) => route
@@ -46,41 +65,5 @@ module WithRouter = {
       | ChangeRoute(route) => ReasonReact.Update(route)
       },
     render: self => children(~currentRoute=self.state),
-  };
-};
-
-module Link = {
-  let component = ReasonReact.statelessComponent("Link");
-  let make = (~href, ~className="", children) => {
-    ...component,
-    render: self =>
-      <a
-        href
-        className
-        onClick={
-          self.handle((event, _self) => {
-            ReactEvent.Mouse.preventDefault(event);
-            ReasonReact.Router.push(href);
-          })
-        }>
-        ...children
-      </a>,
-  };
-};
-
-module NavLink = {
-  let component = ReasonReact.statelessComponent("NavLink");
-  let make = (~href, children) => {
-    ...component,
-    render: _self =>
-      <WithRouter>
-        ...{
-             (~currentRoute) =>
-               <Link
-                 href className={currentRoute.href == href ? "active" : ""}>
-                 ...children
-               </Link>
-           }
-      </WithRouter>,
   };
 };

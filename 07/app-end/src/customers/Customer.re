@@ -56,7 +56,7 @@ module Styles = {
     ]);
 };
 
-let customers = DataPureReason.(parse(getItem("customers")));
+let customers = DataBsJson.(parse(getItem("customers")));
 
 let getId = pathname =>
   try (Js.String.replaceByRe([%bs.re "/\\D/g"], "", pathname)->int_of_string) {
@@ -140,8 +140,8 @@ let make = _children => {
                 customers;
               };
 
-            let json = customers->Belt.List.fromArray->DataPureReason.toJson;
-            DataPureReason.setItem("customers", json);
+            let json = customers->Belt.List.fromArray->DataBsJson.toJson;
+            DataBsJson.setItem("customers", json);
           }
         ),
       );

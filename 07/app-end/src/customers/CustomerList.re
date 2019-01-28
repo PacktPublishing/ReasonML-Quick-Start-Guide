@@ -1,7 +1,7 @@
 let component = ReasonReact.statelessComponent("CustomerList");
 
 let customers =
-  DataPureReason.(parse(getItem("customers")))->Belt.List.fromArray;
+  DataBsJson.(parse(getItem("customers")))->Belt.List.fromArray;
 
 module Styles = {
   open Css;
