@@ -334,27 +334,27 @@ let make = (~currentRoute: Router.route, _children) => {
         <label> {ReasonReact.string("home")} </label>
         <ul>
           <li>
-            <Router.NavLink href="/">
+            <NavLink href="/">
               {ReasonReact.string("Home")}
-            </Router.NavLink>
+            </NavLink>
           </li>
         </ul>
         <label> {ReasonReact.string("pages")} </label>
         <ul>
           <li>
-            <Router.NavLink href="/page1">
+            <NavLink href="/page1">
               {ReasonReact.string("Page1")}
-            </Router.NavLink>
+            </NavLink>
           </li>
           <li>
-            <Router.NavLink href="/page2">
+            <NavLink href="/page2">
               {ReasonReact.string("Page2")}
-            </Router.NavLink>
+            </NavLink>
           </li>
           <li>
-            <Router.NavLink href="/page3">
+            <NavLink href="/page3">
               {ReasonReact.string("Page3")}
-            </Router.NavLink>
+            </NavLink>
           </li>
         </ul>
       </nav>

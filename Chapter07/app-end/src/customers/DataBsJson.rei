@@ -3,4 +3,4 @@
 external setItem: (string, string) => unit = "";
 
 let parse: string => array(CustomerType.t);
-let toJson: list(CustomerType.t) => string;
+let toJson: array(CustomerType.t) => string;

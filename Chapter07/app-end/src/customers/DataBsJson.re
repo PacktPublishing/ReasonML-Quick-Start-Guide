@@ -30,8 +30,8 @@ let customerDecoder = json =>
 let parse = json =>
   json |> Json.parseOrRaise |> Json.Decode.array(customerDecoder);
 
-let toJson = (customers: list(CustomerType.t)) =>
-  customers->Belt.List.map(customer =>
+let toJson = (customers: array(CustomerType.t)) =>
+  customers->Belt.Array.map(customer =>
     Json.Encode.(
       object_([
         ("id", int(customer.id)),
@@ -50,6 +50,5 @@ let toJson = (customers: list(CustomerType.t)) =>
       ])
     )
   )
-  |> Belt.List.toArray
   |> Json.Encode.jsonArray
   |> Json.stringify;

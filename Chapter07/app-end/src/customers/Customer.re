@@ -68,7 +68,7 @@ let getCustomer = customers => {
   customers |> Js.Array.find(customer => customer.CustomerType.id == id);
 };
 
-let getDefault = customers: CustomerType.t => {
+let getDefault = (customers): CustomerType.t => {
   id: Belt.Array.length(customers) + 1,
   name: "",
   address: {
@@ -121,40 +121,35 @@ let make = _children => {
             email: getInputValue("input[name=email]"),
           },
         },
-        (
-          self => {
-            let customers =
-              switch (self.state.mode) {
-              | Create =>
-                Belt.Array.concat(customers, [|self.state.customer|])
-              | Update =>
-                Belt.Array.setExn(
+        self => {
+          let customers =
+            switch (self.state.mode) {
+            | Create => Belt.Array.concat(customers, [|self.state.customer|])
+            | Update =>
+              Belt.Array.setExn(
+                customers,
+                Js.Array.findIndex(
+                  customer =>
+                    customer.CustomerType.id == self.state.customer.id,
                   customers,
-                  Js.Array.findIndex(
-                    customer =>
-                      customer.CustomerType.id == self.state.customer.id,
-                    customers,
-                  ),
-                  self.state.customer,
-                );
-                customers;
-              };
+                ),
+                self.state.customer,
+              );
+              customers;
+            };
 
-            let json = customers->Belt.List.fromArray->DataBsJson.toJson;
-            DataBsJson.setItem("customers", json);
-          }
-        ),
+          let json = customers->DataBsJson.toJson;
+          DataBsJson.setItem("customers", json);
+        },
       );
     },
   render: self =>
     <form
       className=Styles.form
-      onSubmit={
-        event => {
-          ReactEvent.Form.persist(event);
-          self.send(Save(event));
-        }
-      }>
+      onSubmit={event => {
+        ReactEvent.Form.persist(event);
+        self.send(Save(event));
+      }}>
       <label>
         {ReasonReact.string("Name")}
         <input

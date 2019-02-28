@@ -6,13 +6,7 @@ type route = {
 
 let routes = [
   {href: "/", title: "Home", component: <Home />},
-  {href: "/customers", title: "Customer List", component: <CustomerList />},
-  {
-    href: "/customers/create",
-    title: "Create Customer",
-    component: <Customer />,
-  },
-  {href: "/customers/:id", title: "Update Customer", component: <Customer />},
+  {href: "/page1", title: "Page1", component: <Page1 />},
   {href: "/page2", title: "Page2", component: <Page2 />},
   {href: "/page3", title: "Page3", component: <Page3 />},
 ];

@@ -135,9 +135,9 @@ let customerToJson = (customer: CustomerType.t) => {
   |j};
 };
 
-let toJson = (customers: list(CustomerType.t)) =>
-  Belt.List.map(customers, customer => customerToJson(customer))
-  ->Belt.List.reduce("[", (acc, customer) => acc ++ customer ++ ",")
+let toJson = (customers: array(CustomerType.t)) =>
+  Belt.Array.map(customers, customer => customerToJson(customer))
+  ->Belt.Array.reduce("[", (acc, customer) => acc ++ customer ++ ",")
   ->Js.String.replaceByRe([%bs.re "/,$/"], "", _)
   ++ "]"
      ->Js.String.split("/n", _)
