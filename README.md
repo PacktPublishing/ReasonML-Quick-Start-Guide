@@ -1,7 +1,3 @@
-## [Get this title for $10 on Packt's Spring Sale](https://www.packt.com/B11055?utm_source=github&utm_medium=packt-github-repo&utm_campaign=spring_10_dollar_2022)
------
-For a limited period, all eBooks and Videos are only $10. All the practical content you need \- by developers, for developers
-
 # ReasonML Quick Start Guide
 
 <a href="https://www.packtpub.com/application-development/reasonml-quick-start-guide?utm_source=github&utm_medium=repository&utm_campaign=9781789340785"><img src="https://www.packtpub.com/sites/default/files/B11055.png" alt="ReasonML Quick Start Guide" height="256px" align="right"></a>
